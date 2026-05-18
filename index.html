@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- LANDING PAGE -->
+    <div id="landing" class="page-landing">
+        <div class="landing-inner">
+            <div class="badge">May 26 &nbsp;·&nbsp; Birthday</div>
+            <h1 class="headline">
+                Thanks for spending your time<br>
+                on this <em class="accent">precious day.</em>
+            </h1>
+            <div class="divider"></div>
+            <p class="quote">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+            <button class="btn-dbt" id="startBtn" onclick="startPipeline()">
+                <span class="btn-pre">dbt run</span>
+                <span class="btn-main">create semantic model</span>
+                <span class="btn-arrow">→</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- PIPELINE SECTION -->
+    <div id="pipeline" class="page-pipeline hidden">
+        <div class="pipe-status" id="pipeStatus">$ dbt run --select birthday_model</div>
+        <canvas id="pipeCanvas"></canvas>
+
+        <!-- DASHBOARD (revealed at end) -->
+        <div id="dashboard" class="dashboard hidden">
+
+            <!-- Power BI Top Bar -->
+            <div class="pbi-topbar">
+                <div class="pbi-topbar-left">
+                    <svg class="pbi-logo-icon" width="20" height="20" viewBox="0 0 20 20">
+                        <rect x="0"  y="10" width="4" height="10" fill="#F2C811"/>
+                        <rect x="5"  y="6"  width="4" height="14" fill="#F2C811" opacity="0.82"/>
+                        <rect x="10" y="3"  width="4" height="17" fill="#F2C811" opacity="0.65"/>
+                        <rect x="15" y="0"  width="4" height="20" fill="#F2C811" opacity="0.48"/>
+                    </svg>
+                    <span class="pbi-app-name">Power BI</span>
+                    <span class="pbi-sep">|</span>
+                    <span class="pbi-report-name">birthday_metrics</span>
+                </div>
+                <div class="pbi-topbar-right">
+                    <button class="pbi-icon-btn" title="Back" onclick="resetPage()">
+                        <span>←</span> Back
+                    </button>
+                    <button class="pbi-icon-btn" title="Fullscreen">⤢</button>
+                    <button class="pbi-icon-btn" title="Share">&#x1F517;</button>
+                    <div class="pbi-avatar">T</div>
+                </div>
+            </div>
+
+            <!-- Filter bar -->
+            <div class="pbi-filterbar">
+                <span class="pbi-filter-label">Filters</span>
+                <span class="pbi-filter-chip">date: May 26</span>
+                <span class="pbi-filter-chip active">All visuals</span>
+            </div>
+
+            <!-- Canvas -->
+            <div class="pbi-canvas">
+
+                <!-- Row 1: KPI cards -->
+                <div class="pbi-row">
+                    <div class="pbi-tile pbi-kpi-tile">
+                        <div class="pbi-tile-title">Joy Index</div>
+                        <div class="pbi-kpi-number metric-value" data-target="100">0</div>
+                        <div class="pbi-kpi-unit">%</div>
+                        <div class="pbi-kpi-trend trend-up">▲ 100% vs baseline</div>
+                    </div>
+                    <div class="pbi-tile pbi-kpi-tile">
+                        <div class="pbi-tile-title">Smiles Count</div>
+                        <div class="pbi-kpi-number metric-value" data-target="inf">0</div>
+                        <div class="pbi-kpi-unit"></div>
+                        <div class="pbi-kpi-trend trend-up">▲ Unlimited potential</div>
+                    </div>
+                    <div class="pbi-tile pbi-kpi-tile">
+                        <div class="pbi-tile-title">Wishes Sent</div>
+                        <div class="pbi-kpi-number metric-value" data-target="1">0</div>
+                        <div class="pbi-kpi-unit"></div>
+                        <div class="pbi-kpi-trend trend-up">▲ Straight from the heart</div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Charts -->
+                <div class="pbi-row pbi-row-charts">
+                    <div class="pbi-tile pbi-chart-tile">
+                        <div class="pbi-tile-title">Happiness Over Time</div>
+                        <div class="pbi-subtitle">Monthly trend · All time</div>
+                        <div class="pbi-bar-chart">
+                            <div class="pbi-bars">
+                                <div class="pbi-bar-col"><div class="bar-fill pbi-bar" data-h="60" style="--clr:#118DFF"></div><span>Jan</span></div>
+                                <div class="pbi-bar-col"><div class="bar-fill pbi-bar" data-h="75" style="--clr:#12239E"></div><span>Mar</span></div>
+                                <div class="pbi-bar-col"><div class="bar-fill pbi-bar" data-h="50" style="--clr:#E66C37"></div><span>May</span></div>
+                                <div class="pbi-bar-col"><div class="bar-fill pbi-bar" data-h="85" style="--clr:#744EC2"></div><span>Jul</span></div>
+                                <div class="pbi-bar-col"><div class="bar-fill pbi-bar" data-h="70" style="--clr:#118DFF"></div><span>Sep</span></div>
+                                <div class="pbi-bar-col"><div class="bar-fill pbi-bar pbi-bar-today" data-h="100" style="--clr:#F2C811"></div><span>Today</span></div>
+                            </div>
+                            <div class="pbi-x-axis"></div>
+                        </div>
+                    </div>
+
+                    <div class="pbi-tile pbi-chart-tile">
+                        <div class="pbi-tile-title">Birthday Trend</div>
+                        <div class="pbi-subtitle">Cumulative joy · sparkline</div>
+                        <div class="pbi-sparkline-wrap">
+                            <svg class="sparkline" viewBox="0 0 240 80" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#118DFF" stop-opacity="0.3"/>
+                                        <stop offset="100%" stop-color="#118DFF" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <polygon class="spark-area" points="0,80 0,72 40,55 80,62 120,35 160,42 200,22 240,10 240,80" fill="url(#sparkGrad)"/>
+                                <polyline class="spark-line" points="0,72 40,55 80,62 120,35 160,42 200,22 240,10"
+                                          fill="none" stroke="#118DFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle class="spark-dot" cx="240" cy="10" r="5" fill="#118DFF"/>
+                            </svg>
+                            <div class="spark-legend">
+                                <span class="spark-legend-dot"></span>joy_score
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3: Wish text card -->
+                <div class="pbi-row">
+                    <div class="pbi-tile pbi-text-tile">
+                        <div class="pbi-tile-title">Message Output</div>
+                        <div class="pbi-subtitle">output.wish · string</div>
+                        <p id="wishText" class="wish-text"></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Power BI Page Tabs -->
+            <div class="pbi-pagetabs">
+                <div class="pbi-tab pbi-tab-active">Overview</div>
+                <div class="pbi-tab">Details</div>
+                <div class="pbi-tab">Raw Data</div>
+                <div class="pbi-pagetabs-spacer"></div>
+                <span class="pbi-page-nav">◀ ▶</span>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="animation.js"></script>
+
+    <!-- Firebase Analytics — replace config values -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
+        };
+        try {
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            logEvent(analytics, 'page_view');
+        } catch (e) { /* config not set yet */ }
+    </script>
+</body>
+</html>
