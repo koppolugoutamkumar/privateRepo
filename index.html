@@ -162,24 +162,24 @@
 
     <script src="animation.js"></script>
 
-    <!-- Firebase Analytics — replace config values -->
+    <!-- Firebase Analytics -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID",
-            measurementId: "YOUR_MEASUREMENT_ID"
+            apiKey: "AIzaSyAkxpg5mpvW2bmy2LScPxwDx5UgzXNYgNQ",
+            authDomain: "happy-birthday-bb5f4.firebaseapp.com",
+            projectId: "happy-birthday-bb5f4",
+            storageBucket: "happy-birthday-bb5f4.firebasestorage.app",
+            messagingSenderId: "574739134183",
+            appId: "1:574739134183:web:ec92acebf32ffd05c2d442",
+            measurementId: "G-Y9DH4L9Y1F"
         };
-        try {
-            const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
-            logEvent(analytics, 'page_view');
-        } catch (e) { /* config not set yet */ }
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        window._analytics = analytics;
+        window._logEvent = logEvent;
+        logEvent(analytics, 'page_view');
     </script>
 </body>
 </html>

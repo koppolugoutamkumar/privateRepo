@@ -9,9 +9,10 @@ const RAW_WORDS = [
     'tset!','0xFF','bd@y','wrng_data','##??'
 ];
 
-const WISH = `Happy Birthday! 🎉\n\nOn this special day, may your pipelines run green, your queries execute fast, and your dashboards always tell the story you need. You bring so much data-driven energy and creativity to everything you do — here's to another year of transforming raw data into beautiful insights!\n\nWishing you all the joy, success, and growth you deserve. Keep building amazing things. Happy Birthday! 🎂`;
+const WISH = `Happiest Birthday Deekshitha 🎉\n\nOn this special day, may your pipelines run green, your queries execute fast, and your dashboards always tell the story you need.  \n\nWishing you all the joy, success, and growth you deserve. Keep building amazing things. Happy Birthday once again! 🎂`;
 
 function startPipeline() {
+    if (window._analytics) window._logEvent(window._analytics, 'pipeline_started', { run_count: _runCount + 1 });
     _runCount++;
     const isErrorRun = (_runCount % 2 === 0);
     const landing = document.getElementById('landing');
@@ -25,6 +26,7 @@ function startPipeline() {
 }
 
 function resetPage() {
+    if (window._analytics) window._logEvent(window._analytics, 'pipeline_reset');
     const pipeline = document.getElementById('pipeline');
     const dashboard = document.getElementById('dashboard');
     const landing = document.getElementById('landing');
@@ -129,7 +131,7 @@ function initPipeline(isErrorRun) {
             dbError = true;
             setStatus('✗ ERROR: schema_mismatch detected', '#ef4444');
         }, 8200);
-        setTimeout(() => setStatus('› fixing: ALTER TABLE birthday_model...'), 9800);
+        setTimeout(() => setStatus('› fixing: ALTER TABLE birthday_model as some of the data is built on Aggregations...'), 9800);
         setTimeout(() => setStatus('› re-running dbt build...'), 11600);
         setTimeout(() => { dbError = false; setStatus('› schema patched. retrying...'); }, 13400);
         setTimeout(() => { packetOnRail2 = true; setStatus('› materializing semantic layer...'); }, 14800);
