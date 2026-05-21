@@ -9,12 +9,12 @@ const RAW_WORDS = [
     'tset!','0xFF','bd@y','wrng_data','##??'
 ];
 
-const WISH = `Happiest Birthday Deekshitha 🎉\n\nOn this special day, may your pipelines run green, your queries execute fast, and your dashboards always tell the story you need.  \n\nWishing you all the joy, success, and growth you deserve. Keep building amazing things. Happy Birthday once again! 🎂`;
+const WISH = `Happiest Birthday Deekshitha 🎉\n\n\ May every dream you've been chasing inch a little closer, every door you've been knocking on finally swing wide open, and every sacrifice you've made quietly pay off loudly.\n\nMay your pipelines run green, your queries stay fast, and your dashboards always tell the story you deserve to see.\n\nHappy Birthday — you are enough, and you are more than enough. 🎂`;
 
 function startPipeline() {
     if (window._analytics) window._logEvent(window._analytics, 'pipeline_started', { run_count: _runCount + 1 });
     _runCount++;
-    const isErrorRun = (_runCount % 2 === 0);
+    const isErrorRun = (_runCount % 2 !== 0);
     const landing = document.getElementById('landing');
     landing.classList.add('fading');
     setTimeout(() => {
@@ -131,14 +131,14 @@ function initPipeline(isErrorRun) {
             dbError = true;
             setStatus('✗ ERROR: schema_mismatch detected', '#ef4444');
         }, 8200);
-        setTimeout(() => setStatus('› fixing: ALTER TABLE birthday_model as some of the data is built on Aggregations...'), 9800);
-        setTimeout(() => setStatus('› re-running dbt build...'), 11600);
-        setTimeout(() => { dbError = false; setStatus('› schema patched. retrying...'); }, 13400);
-        setTimeout(() => { packetOnRail2 = true; setStatus('› materializing semantic layer...'); }, 14800);
+        setTimeout(() => setStatus('› fixing: ALTER TABLE birthday_model as some of the data is built on Aggregations...'), 11000);
+        setTimeout(() => setStatus('› re-running dbt build...'), 13800);
+        setTimeout(() => { dbError = false; setStatus('› schema patched. retrying...'); }, 16500);
+        setTimeout(() => { packetOnRail2 = true; setStatus('› materializing semantic layer...'); }, 18800);
         setTimeout(() => {
             showDashboard = true;
             revealDashboard();
-        }, 17200);
+        }, 22000);
     }
 
     if (animFrame) cancelAnimationFrame(animFrame);
@@ -537,6 +537,10 @@ function revealDashboard() {
 function animateMetrics() {
     document.querySelectorAll('.metric-value').forEach(el => {
         const target = el.dataset.target;
+        if (target === 'max') {
+            setTimeout(() => { el.textContent = 'MAX'; }, 600);
+            return;
+        }
         if (target === 'inf') {
             let n = 0;
             const iv = setInterval(() => {

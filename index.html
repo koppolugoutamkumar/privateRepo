@@ -20,10 +20,9 @@
             </h1>
             <div class="divider"></div>
             <p class="quote">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                You've always known how to stand on your own — turning every challenge into a stepping stone
+                and every doubt into fuel. The version of you celebrating today didn't get here by accident.
+                She got here by choosing herself, again and again. That's worth more than a thousand wishes.
             </p>
             <button class="btn-dbt" id="startBtn" onclick="startPipeline()">
                 <span class="btn-pre">dbt run</span>
@@ -94,6 +93,12 @@
                         <div class="pbi-kpi-unit"></div>
                         <div class="pbi-kpi-trend trend-up">▲ Straight from the heart</div>
                     </div>
+                    <div class="pbi-tile pbi-kpi-tile">
+                        <div class="pbi-tile-title">Independence</div>
+                        <div class="pbi-kpi-number metric-value" data-target="max">—</div>
+                        <div class="pbi-kpi-unit"></div>
+                        <div class="pbi-kpi-trend trend-up">▲ Born to stand on her feet</div>
+                    </div>
                 </div>
 
                 <!-- Row 2: Charts -->
@@ -143,6 +148,21 @@
                         <div class="pbi-tile-title">Message Output</div>
                         <div class="pbi-subtitle">output.wish · string</div>
                         <p id="wishText" class="wish-text"></p>
+                    </div>
+                </div>
+
+                <!-- Row 4: Personal schema + insight -->
+                <div class="pbi-row">
+                    <div class="pbi-tile pbi-schema-tile">
+                        <div class="pbi-tile-title">Personal Schema</div>
+                        <div class="pbi-subtitle">deekshitha_attributes · read-only</div>
+                        <div class="schema-table">
+                            <div class="schema-row"><span class="schema-col">independence</span><span class="schema-type">TEXT</span><span class="schema-val">'MAX'</span></div>
+                            <div class="schema-row"><span class="schema-col">resilience</span><span class="schema-type">INTEGER</span><span class="schema-val">100</span></div>
+                            <div class="schema-row"><span class="schema-col">strength</span><span class="schema-type">TEXT</span><span class="schema-val">'Unbounded'</span></div>
+                            <div class="schema-row"><span class="schema-col">kindness</span><span class="schema-type">FLOAT</span><span class="schema-val">∞</span></div>
+                            <div class="schema-row"><span class="schema-col">dreams</span><span class="schema-type">ARRAY</span><span class="schema-val">[ ... limitless ]</span></div>
+                        </div>
                     </div>
                 </div>
 
