@@ -90,9 +90,9 @@ function initPipeline(isErrorRun) {
     window.addEventListener('resize', resize);
     resize();
 
-    // Spawn raw word particles
+    // Spawn raw word particles (first one is always Deekshitha)
     for (let i = 0; i < 22; i++) {
-        spawnParticle(canvas.width, canvas.height);
+        spawnParticle(canvas.width, canvas.height, null, i === 0);
     }
 
     let rail1Progress = 0;
@@ -171,12 +171,20 @@ function initPipeline(isErrorRun) {
                 const zoneW  = (f.w || 100) * 1.6;
                 const zoneH  = Math.max((f.y || 60) - 20, 60);
                 const outX = p.x < mouthX - zoneW || p.x > mouthX + zoneW;
-                const outY = p.y < 0 || p.y > (f.y || canvas.height);
+                const fBottom = (f.y || 0) + (f.h || 0);
+                const outY = p.y < 0 || p.y > Math.max(fBottom, canvas.height * 0.55);
                 if ((outX || outY) && phase === 'particles') spawnParticle(canvas.width, canvas.height, p);
             }
             ctx.save();
             ctx.font = `${p.size}px 'JetBrains Mono', monospace`;
-            ctx.fillStyle = `rgba(167,139,250,${p.opacity * 0.7})`;
+            if (p.special) {
+                const pulse = 0.65 + 0.35 * Math.sin(Date.now() / 380);
+                ctx.shadowColor = 'rgba(242,200,17,0.9)';
+                ctx.shadowBlur = 12 * pulse;
+                ctx.fillStyle = `rgba(242,200,17,${p.opacity * 0.85 + 0.1})`;
+            } else {
+                ctx.fillStyle = `rgba(167,139,250,${p.opacity * 0.7})`;
+            }
             ctx.fillText(p.word, p.x, p.y);
             ctx.restore();
         }
@@ -492,7 +500,7 @@ function roundRect(ctx, x, y, w, h, r) {
     ctx.closePath();
 }
 
-function spawnParticle(W, H, p) {
+function spawnParticle(W, H, p, forceSpecial) {
     const obj = p || {};
     const f = layout.funnel || { x: W * 0.07, y: H * 0.2, w: W * 0.22, h: H * 0.28 };
     const mouthX = f.x + f.w / 2;
@@ -500,15 +508,16 @@ function spawnParticle(W, H, p) {
     const zoneW  = f.w * 1.6;
     const zoneH  = Math.max(mouthY - 20, 60);
 
-    // Scatter in the staging area directly above the funnel mouth
     obj.x = mouthX + (Math.random() - 0.5) * zoneW;
-    obj.y = 10 + Math.random() * zoneH;
+    obj.y = 10 + Math.random() * Math.max(zoneH, H * 0.45);
 
-    obj.word    = RAW_WORDS[Math.floor(Math.random() * RAW_WORDS.length)];
-    obj.vx      = (Math.random() - 0.5) * 0.8;
-    obj.vy      = (Math.random() - 0.5) * 0.8;
-    obj.size    = 11 + Math.random() * 7;
-    obj.opacity = 0.4 + Math.random() * 0.5;
+    const isSpecial = forceSpecial || obj.special || false;
+    obj.special  = isSpecial;
+    obj.word     = isSpecial ? 'Deekshitha' : RAW_WORDS[Math.floor(Math.random() * RAW_WORDS.length)];
+    obj.vx       = (Math.random() - 0.5) * 0.8;
+    obj.vy       = (Math.random() - 0.5) * 0.8;
+    obj.size     = isSpecial ? 15 + Math.random() * 3 : 11 + Math.random() * 7;
+    obj.opacity  = 0.4 + Math.random() * 0.5;
     if (!p) particles.push(obj);
 }
 
